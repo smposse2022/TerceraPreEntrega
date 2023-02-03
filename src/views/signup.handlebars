@@ -1,0 +1,99 @@
+ <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Formulario de Registro</h2>
+              {{#if error}}
+                <p>{{error}}</p>
+              {{/if}}
+              <form action="/auth/signup" method="POST">
+
+                <div class="form-outline mb-4">
+                  <input
+                    type="email"
+                    id="mailInput"
+                    class="form-control form-control-lg"
+                    name="email"
+                  />
+                  <label class="form-label" for="email">Mail</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <input
+                    type="password"
+                    id="passwordInput"
+                    class="form-control form-control-lg"
+                    name="password"
+                  />
+                  <label
+                    class="form-label"
+                    for="password"
+                  >Password</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <input
+                    type="text"
+                    id="nombreInput"
+                    class="form-control form-control-lg"
+                    name="nombre"
+                  />
+                  <label class="form-label" for="form3Example1cg">Nombre</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <input
+                    type="text"
+                    id="direccionInput"
+                    class="form-control form-control-lg"
+                    name="direccion"
+                  />
+                  <label class="form-label" for="direccion">Direccion</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <input
+                    type="text"
+                    id="edadInput"
+                    class="form-control form-control-lg"
+                    name="edad"
+                  />
+                  <label class="form-label" for="edad">Edad</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <input
+                    type="text"
+                    id="telefonoInput"
+                    class="form-control form-control-lg"
+                    name="telefono"
+                  />
+                  <label class="form-label" for="telefono">Teléfono</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <input
+                    type="text"
+                    id="fotoUrlInput"
+                    class="form-control form-control-lg"
+                    name="fotoUrl"
+                  />
+                  <label class="form-label" for="fotoUrl">FotoUrl</label>
+                </div> 
+                <div class="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-block mb-4"
+                  >Registrarse</button>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Ya tienes cuenta?
+                  <a href="/auth/inicio-sesion" class="fw-bold text-body"><u>Inicia
+                      sesión</u></a></p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{> scripts}}

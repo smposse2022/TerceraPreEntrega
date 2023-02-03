@@ -1,0 +1,4 @@
+[2023-01-28T14:35:30.543] [ERROR] default - Hubo un error conectandose a la base MongooseError: The `uri` parameter to `openUri()` must be a string, got "object". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+[2023-01-28T14:35:45.224] [ERROR] default - Hubo un error conectandose a la base MongooseError: The `uri` parameter to `openUri()` must be a string, got "object". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+[2023-01-28T14:36:41.742] [ERROR] default - Hubo un error conectandose a la base MongooseError: The `uri` parameter to `openUri()` must be a string, got "object". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+[2023-01-31T17:31:34.079] [ERROR] default - No se encontró el usuario con el username mgposse@gmail.com
