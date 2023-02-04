@@ -33,7 +33,7 @@ const optionsMinimist = {
   alias: { p: "PORT", m: "mode" },
 };
 const objArguments = parsedArgs(process.argv.slice(2), optionsMinimist);
-const PORT = objArguments.PORT;
+const PORT = config.PUERTO || objArguments.PORT;
 const MODO = objArguments.mode;
 //console.log(objArguments);
 
