@@ -11,4 +11,4 @@ export const AdminTel = "+5491130296235";
 export const AdminWapp = "whatsapp:+5491130296235";
 
 // creamos un cliente para conectar con Twilio
-export const client = twilio(accountId, authToken);
+export const twilioClient = twilio(accountId, authToken);

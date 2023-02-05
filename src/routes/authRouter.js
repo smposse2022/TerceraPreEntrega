@@ -4,11 +4,10 @@ import bcrypt from "bcrypt";
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "../models/user.js";
 import { logger } from "../logger.js";
-import { checkLogin } from "../middlewares/checkLogin.js";
 import { transporterEmail, mailAdmin } from "../messages/email.js";
 import {
   twilioAdminPhone,
-  client,
+  twilioClient,
   twillioWapp,
   AdminTel,
   AdminWapp,
@@ -219,7 +218,7 @@ authRouter.get("/logout", (req, res) => {
 authRouter.post("/twilio-sms", async (req, res) => {
   try {
     // utilizamos el cliente para enviar un mensaje
-    const response = await client.messages.create({
+    const response = await twilioClient.messages.create({
       body: "Hola. Envío de Mensaje desde NodeJs utilizando Twilio",
       from: twilioAdminPhone, // número desde donde sale el mensaje
       to: AdminTel, // destinatario - Santiago Posse
@@ -234,7 +233,7 @@ authRouter.post("/twilio-sms", async (req, res) => {
 authRouter.post("/twilio-whatsapp", async (req, res) => {
   try {
     // utilizamos el cliente para enviar un mensaje
-    const response = await client.messages.create({
+    const response = await twilioClient.messages.create({
       body: "Hola. Envío de Mensaje desde NodeJs utilizando Twilio",
       from: twillioWapp, // número desde donde sale el mensaje
       to: AdminWapp, // destinatario - Santiago Posse

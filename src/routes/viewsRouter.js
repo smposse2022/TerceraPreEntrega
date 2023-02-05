@@ -3,7 +3,7 @@ import { ContenedorDaoProductos } from "../daos/index.js";
 import { logger } from "../logger.js";
 
 // Product manager
-const listaProductos = ContenedorDaoProductos;
+const productosApi = ContenedorDaoProductos;
 
 const viewsRouter = Router();
 
@@ -19,7 +19,7 @@ viewsRouter.get("/", async (req, res) => {
 
 viewsRouter.get("/productos", async (req, res) => {
   logger.info("Acceso a Ruta productos-test");
-  const products = await listaProductos.getAll();
+  const products = await productosApi.getAll();
   res.render("productos", { products: products });
 });
 

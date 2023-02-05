@@ -7,7 +7,7 @@ const cartCollection = "carritos";
 const cartSchema = new mongoose.Schema(
   {
     products: {
-      type: [Number],
+      type: Array,
       required: true,
     },
   },
