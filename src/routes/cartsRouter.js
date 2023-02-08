@@ -18,6 +18,12 @@ cartsRouter.get("/", async (req, res) => {
   const response = await carritosApi.getAll();
   res.json(response);
 });
+/*if (req.user) {
+  console.log(req.user);
+  res.send(`Hola ${req.user._id}`);
+} else {
+  res.send("Chau");
+}*/
 
 cartsRouter.post("/", async (req, res) => {
   const response = await carritosApi.save({

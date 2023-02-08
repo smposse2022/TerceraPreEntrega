@@ -1,9 +1,9 @@
 const addProduct = async (productId) => {
   console.log(productId);
   //aqui haces el fetch de la peticion para guardar el producto en el carrito.
-  const response = await fetch("/carritos", {
+  await fetch("/carritos", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json; charset=UTF-8" },
     body: JSON.stringify(productId),
   });
 };
