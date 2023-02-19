@@ -172,3 +172,4 @@ const normalizarMensajes = async () => {
 };
 */
 //servidor de websocket y lo conectamos con el servidor de express
+export { app };

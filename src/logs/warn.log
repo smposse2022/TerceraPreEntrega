@@ -180,3 +180,5 @@
 [2023-02-01T22:04:52.653] [WARN] default - Se intentó acceder a una ruta inexistente
 [2023-02-01T22:04:57.178] [WARN] default - Se intentó acceder a una ruta inexistente
 [2023-02-01T22:08:48.485] [WARN] default - Se intentó acceder a una ruta inexistente
+[2023-02-19T16:22:52.407] [ERROR] default - No se encontró el usuario con el username smposse@gmail.com
+[2023-02-19T16:25:29.264] [ERROR] default - No se encontró el usuario con el username smposse@gmail.com

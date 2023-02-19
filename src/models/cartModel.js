@@ -10,6 +10,10 @@ const cartSchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    userId: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

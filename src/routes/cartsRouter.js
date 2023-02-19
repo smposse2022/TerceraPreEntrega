@@ -7,6 +7,8 @@ import {
   ContenedorDaoProductos,
   ContenedorDaoCarritos,
 } from "../daos/index.js";
+import { CartModel } from "../models/cartModel.js";
+import { ProductModel } from "../models/productModel.js";
 
 const productosApi = ContenedorDaoProductos;
 const carritosApi = ContenedorDaoCarritos;
@@ -15,8 +17,15 @@ const carritosApi = ContenedorDaoCarritos;
 const cartsRouter = express.Router();
 
 cartsRouter.get("/", async (req, res) => {
-  const response = await carritosApi.getAll();
-  res.json(response);
+  const userId = req.body.id; // debería ser req.user
+  const clientCart = CartModel.findOne({ userId: userId });
+  console.log(clientCart.products);
+  if (!clientCart) {
+    res.json("El usuario no tiene un carrito aún");
+  } else {
+    const response = await carritosApi.getById(userId);
+    res.json(response);
+  }
 });
 /*if (req.user) {
   console.log(req.user);
@@ -26,20 +35,18 @@ cartsRouter.get("/", async (req, res) => {
 }*/
 
 cartsRouter.post("/", async (req, res) => {
-  const response = await carritosApi.save({
-    products: [],
-    timestamp: new Date().toLocaleDateString(),
-  });
+  const carrito = { products: req.body.products, userId: req.body.userId };
+  const response = await carritosApi.save(carrito);
   res.json(response);
 });
 
 cartsRouter.delete("/:id", async (req, res) => {
-  const cartId = req.params.id;
+  const cartId = req.body.cartId;
   res.json(await carritosApi.deleteById(cartId));
 });
 
 cartsRouter.get("/:id/productos", async (req, res) => {
-  const cartId = req.params.id;
+  const cartId = req.body.cartId;
   const carritoResponse = await carritosApi.getById(cartId);
   if (carritoResponse.error) {
     res.json(carritoResponse);
@@ -58,7 +65,7 @@ cartsRouter.get("/:id/productos", async (req, res) => {
 });
 
 cartsRouter.post("/:id/productos", async (req, res) => {
-  const cartId = req.params.id;
+  const cartId = req.body.cartId;
   const productId = req.body.id;
   const carritoResponse = await carritosApi.getById(cartId);
   if (carritoResponse.error) {
@@ -79,8 +86,8 @@ cartsRouter.post("/:id/productos", async (req, res) => {
 });
 
 cartsRouter.delete("/:id/productos/:idProd", async (req, res) => {
-  const cartId = req.params.id;
-  const productId = req.params.idProd;
+  const cartId = req.body.id;
+  const productId = req.body.idProd;
   const carritoResponse = await carritosApi.getById(cartId);
   if (carritoResponse.error) {
     res.json({ message: `El carrito con id: ${cartId} no fue encontrado` });

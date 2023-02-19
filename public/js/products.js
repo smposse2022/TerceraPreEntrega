@@ -3,7 +3,7 @@ const addProduct = async (productId) => {
   //aqui haces el fetch de la peticion para guardar el producto en el carrito.
   await fetch("/carritos", {
     method: "POST",
-    headers: { "Content-Type": "application/json; charset=UTF-8" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(productId),
   });
 };
