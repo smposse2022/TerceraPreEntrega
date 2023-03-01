@@ -9,6 +9,14 @@ import {
 } from "../daos/index.js";
 import { CartModel } from "../models/cartModel.js";
 import { ProductModel } from "../models/productModel.js";
+import { transporterEmail, mailAdmin } from "../messages/email.js";
+import {
+  twilioAdminPhone,
+  twilioClient,
+  twillioWapp,
+  AdminTel,
+  AdminWapp,
+} from "../messages/twilio.js";
 
 const productosApi = ContenedorDaoProductos;
 const carritosApi = ContenedorDaoCarritos;
@@ -17,27 +25,47 @@ const carritosApi = ContenedorDaoCarritos;
 const cartsRouter = express.Router();
 
 cartsRouter.get("/", async (req, res) => {
-  const userId = req.body.id; // debería ser req.user
-  const clientCart = CartModel.findOne({ userId: userId });
-  console.log(clientCart.products);
-  if (!clientCart) {
-    res.json("El usuario no tiene un carrito aún");
-  } else {
-    const response = await carritosApi.getById(userId);
-    res.json(response);
-  }
+  const userId = req.body.userId; // debería ser req.user._id;
+  const clientCart = await carritosApi.getByUserId(userId);
+  res.json(clientCart[0]);
 });
-/*if (req.user) {
-  console.log(req.user);
-  res.send(`Hola ${req.user._id}`);
-} else {
-  res.send("Chau");
-}*/
 
 cartsRouter.post("/", async (req, res) => {
   const carrito = { products: req.body.products, userId: req.body.userId };
   const response = await carritosApi.save(carrito);
   res.json(response);
+});
+
+cartsRouter.get("/enviar-pedido", async (req, res) => {
+  const userId = req.body.userId; // debería ser req.user._id;
+  const nombre = req.body.nombre; // debería ser req.user.nombre;
+  const email = req.body.email; // debería serreq.user.email;
+  const clientCart = await carritosApi.getByUserId(userId);
+  const emailTemplate = `<div>
+        <h1>Pedido enviado</h1>
+        <h3>Productos: ${clientCart[0].products}</h3>
+    </div>`;
+
+  const mailOptions = {
+    from: "Servidor de NodeJs",
+    to: mailAdmin,
+    subject: `Nuevo Pedido de ${nombre} ${email}`,
+    html: emailTemplate,
+  };
+  transporterEmail.sendMail(mailOptions);
+  const cartId = await carritosApi.getByUserId(userId);
+  await carritosApi.deleteById(cartId[0]);
+  await twilioClient.messages.create({
+    body: `Nuevo Pedido de ${nombre} ${email}`,
+    from: twillioWapp, // número desde donde sale el mensaje
+    to: AdminWapp, // destinatario - Santiago Posse
+  });
+  await twilioClient.messages.create({
+    body: "Su pedido ha sido recibido y se encuentra en proceso",
+    from: twilioAdminPhone, // número desde donde sale el mensaje
+    to: AdminTel, // destinatario - Santiago Posse
+  });
+  res.json("El pedido ha sido enviado y el carrito borrado");
 });
 
 cartsRouter.delete("/:id", async (req, res) => {
